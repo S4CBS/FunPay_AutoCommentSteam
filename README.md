@@ -2,7 +2,7 @@
 Комментирование аккаунтов steam, pyautogui, requests.
 
 # Libraries
-- main.py
+# main.py
 
 - import pyautogui
 - from cfg_creator import get_cfg
@@ -15,7 +15,7 @@
 - import pyperclip
 - from FunPayAPI import Account
 
-- cfg_creator.py
+# cfg_creator.py
 
 - import configparser
 - from configparser import NoSectionError

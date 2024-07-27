@@ -144,7 +144,8 @@ def go_to_link():
                     steam_text = match.group(2)
 
                     if "RANDOM" in steam_text or "random" in steam_text:
-                        steam_text = "+rep, Лучший игрок, просто машина"
+                        import random
+                        steam_text = random.choice(plus_rep_massiv)
 
                     sleep(1)
 

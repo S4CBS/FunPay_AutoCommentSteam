@@ -1,5 +1,6 @@
 import configparser
 from configparser import NoSectionError
+import os
 def get_cfg():
     try:
         # создаём объекта парсера
@@ -16,6 +17,8 @@ def get_cfg():
 
         golden_key = str(input("Введите ваш golden_key: "))
         timer = int(input("Введите время повторяющегося запроса (в секундах): "))
+
+        os.system("cls")
 
         # Создание кфг
         config = configparser.ConfigParser()

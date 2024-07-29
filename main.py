@@ -75,7 +75,6 @@ def go_to_link():
 
             message = chat_msg_text
             text = message.get_text()
-            print(text)
             if "Ссылка:" in text:
                 # Extract the Steam URL and custom text
                 match = re.search(r"Ссылка: (\S+), Мой текст: (.+)", text)
@@ -87,7 +86,7 @@ def go_to_link():
                         import random
                         steam_text = random.choice(plus_rep_massiv)
 
-                    sleep(1)
+                    sleep(3)
 
                     pyperclip.copy(steam_text)
 
@@ -104,13 +103,21 @@ def go_to_link():
                         for pd in range(15):
                             pyautogui.press('pagedown')
 
+                        sleep(1)
+
+                        for up in range(5):
+                            pyautogui.press("up")
+
                         sleep(2)
 
                         location = pyautogui.locateCenterOnScreen(path_to_image)
 
                         if location:
                             pyautogui.moveTo(location)
+                            sleep(1)
                             pyautogui.click()
+
+                            sleep(2)
 
                             pyautogui.hotkey('ctrl', 'v')
 
@@ -121,6 +128,7 @@ def go_to_link():
 
                             if enter_path:
                                 pyautogui.moveTo(location_enter)
+                                sleep(1)
                                 pyautogui.click()
 
                             done.add(order_id)
@@ -134,6 +142,7 @@ def go_to_link():
                                 pass
 
                             done.add(order_id)
+                            sleep(1)
                             pyautogui.hotkey("ctrl", "w")
                             message_processed = True
                             break
@@ -164,13 +173,20 @@ def go_to_link():
                         for pd in range(15):
                             pyautogui.press('pagedown')
 
+                        sleep(1)
+
+                        for up in range(5):
+                            pyautogui.press("up")
+
                         sleep(2)
 
                         location = pyautogui.locateCenterOnScreen(path_to_image)
 
                         if location:
                             pyautogui.moveTo(location)
+                            sleep(1)
                             pyautogui.click()
+                            sleep(3)
 
                             pyautogui.hotkey('ctrl', 'v')
 
@@ -192,6 +208,7 @@ def go_to_link():
                                 pass
 
                             done.add(order_id)
+                            sleep(1)
                             pyautogui.hotkey("ctrl", "w")
                             message_processed = True
                             break

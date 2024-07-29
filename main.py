@@ -9,6 +9,8 @@ from time import sleep
 import pyperclip
 from FunPayAPI import Account
 
+from pyautogui import ImageNotFoundException
+
 done = set()
 
 token, timer, web_user_agent = get_cfg()
@@ -17,7 +19,6 @@ headers = {
     "User-Agent": f"{web_user_agent}",
     "Cookie": f"golden_key={token}"
 }
-
 
 def get_status_info():
     url = "https://funpay.com/orders/trade?id=&buyer=&state=paid&game=45&section=lot-1009&server="
@@ -75,6 +76,7 @@ def go_to_link():
 
             message = chat_msg_text
             text = message.get_text()
+            print(text)
             if "Ссылка:" in text:
                 # Extract the Steam URL and custom text
                 match = re.search(r"Ссылка: (\S+), Мой текст: (.+)", text)
@@ -92,8 +94,7 @@ def go_to_link():
 
                     sleep(1)
                     # Check if the URL contains the required text
-                    if (
-                            "https://steamcommunity.com/profiles/" in steam_url or "https://steamcommunity.com/id/" in steam_url) and order_id not in done:
+                    if ("https://steamcommunity.com/profiles/" in steam_url or "https://steamcommunity.com/id/" in steam_url) and order_id not in done:
                         webbrowser.open(steam_url)
 
                         path_to_image = "comment_png.png"
@@ -162,8 +163,7 @@ def go_to_link():
 
                     sleep(1)
                     # Check if the URL contains the required text
-                    if (
-                            "https://steamcommunity.com/profiles/" in steam_url or "https://steamcommunity.com/id/" in steam_url) and order_id not in done:
+                    if ("https://steamcommunity.com/profiles/" in steam_url or "https://steamcommunity.com/id/" in steam_url) and order_id not in done:
                         webbrowser.open(steam_url)
 
                         path_to_image = "comment_png.png"
@@ -212,6 +212,112 @@ def go_to_link():
                             pyautogui.hotkey("ctrl", "w")
                             message_processed = True
                             break
+            if ("https://steamcommunity.com/workshop/filedetails/" in text or "https://steamcommunity.com/sharedfiles/filedetails/" in text) and order_id not in done:
+                ctrl_f_text = "YES"
+                ctrl_f_text_error = "Error"
+                pyperclip.copy(ctrl_f_text)
+                webbrowser.open(text)
+
+                sleep(5)
+
+                like_workshop_image = "like_workshop.png"
+                pyautogui.press("pagedown")
+
+                sleep(2)
+
+                pyautogui.hotkey("ctrl", "f")
+                pyautogui.press("backspace")
+
+                sleep(1)
+
+                pyautogui.hotkey("ctrl", "v")
+
+                sleep(1)
+
+                pyautogui.press("enter")
+
+                sleep(1)
+
+                def click_like():
+                    try:
+                        pyperclip.copy(ctrl_f_text)
+                        sleep(1)
+
+                        pyautogui.hotkey("ctrl", "f")
+                        pyautogui.press("backspace")
+
+                        sleep(1)
+
+                        pyautogui.hotkey("ctrl", "v")
+
+                        sleep(1)
+
+                        pyautogui.press("enter")
+
+                        sleep(1)
+
+                        location_like = pyautogui.locateOnScreen(like_workshop_image, confidence=0.9)
+                        sleep(1)
+                        pyautogui.moveTo(location_like)
+                        sleep(1)
+                        pyautogui.click()
+                        sleep(1)
+                    except Exception as e:
+                        pass
+
+                click_like()
+
+                try:
+                    pyperclip.copy(ctrl_f_text_error)
+                    sleep(1)
+
+                    pyautogui.hotkey("ctrl", "f")
+                    pyautogui.press("backspace")
+
+                    sleep(1)
+
+                    pyautogui.hotkey("ctrl", "v")
+
+                    sleep(1)
+
+                    pyautogui.press("enter")
+
+                    sleep(1)
+
+                    error = pyautogui.locateOnScreen("error.png", confidence="0.9")
+
+                    if error:
+                        pyautogui.press("f5")
+
+                        click_like()
+                except ImageNotFoundException as e:
+                    pass
+
+                #End
+                done.add(order_id)
+                sleep(1)
+
+                try:
+                    acc = Account(golden_key=token,
+                                  user_agent=f"{web_user_agent}").get()
+                    pyautogui.press("f5")
+                    sleep(5)
+                    pyautogui.screenshot("temp_scr.png")
+                    sleep(1)
+                    acc.send_image(chat_id=chat_id, image="temp_scr.png")
+                    acc.send_message(chat_id=chat_id, text="@BOT@: Заказ выполнен!")
+                except Exception as e:
+                    pass
+
+                pyautogui.hotkey("ctrl", "w")
+                break
+            if "/support" in text:
+                try:
+                    acc = Account(golden_key=token,
+                                  user_agent=f"{web_user_agent}").get()
+                    acc.send_message(chat_id=chat_id, text="@BOT@: Уведомление отправлено продавцу, как только он его прочтёт сразу поможет!")
+                except Exception as e:
+                    pass
 
 
 schedule.every(timer).seconds.do(go_to_link)

@@ -11,10 +11,10 @@ from FunPayAPI import Account
 
 done = set()
 
-token, timer = get_cfg()
+token, timer, user_agent = get_cfg()
 
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36",
+    "User-Agent": f"{user_agent}",
     "Cookie": f"golden_key={token}"
 }
 
@@ -135,7 +135,7 @@ def go_to_link():
 
                             try:
                                 acc = Account(golden_key=token,
-                                              user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36").get()
+                                              user_agent=f"{user_agent}").get()
                                 acc.send_message(chat_id=chat_id,
                                                  text="@BOT@: Заказ выполнен! [Для проверки: Мой никнейм Axmed, 20 lvl steam], Не забудьте подтвердить заказ!")
                             except Exception as e:
@@ -201,7 +201,7 @@ def go_to_link():
 
                             try:
                                 acc = Account(golden_key=token,
-                                              user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36").get()
+                                              user_agent=f"{user_agent}").get()
                                 acc.send_message(chat_id=chat_id,
                                                  text="@BOT@: Заказ выполнен! [Для проверки: Мой никнейм Axmed, 20 lvl steam], Не забудьте подтвердить заказ!")
                             except Exception as e:

@@ -44,7 +44,6 @@ def get_status_info():
 
 
 def go_to_link():
-    print("waiting...")
     plus_rep_massiv = ["+rep красавчик", "+rep соло плеер", "+rep роблоксер", "+rep жоски", "+rep сигма",
                        "+rep krasava", "+rep gg", "+rep gg wp", "+rep clutch king", "ty for game bro +rep!",
                        "+rep best", "+rep frendly"]
